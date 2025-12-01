@@ -1,0 +1,13 @@
+{
+  "assistant_enabled": true,
+  "wake_word_enabled": true,
+  "stt_enabled": true,
+  "tts_enabled": true,
+  "start_visible": true,
+  "ai_mode": "heuristics",
+  "volume": 50,
+  "mic_sensitivity": 50,
+  "hotkey_enabled": true,
+  "hotkey": "",
+  "tts_voice": "Default"
+}
