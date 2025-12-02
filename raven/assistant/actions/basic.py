@@ -6,7 +6,10 @@ def handle_greeting():
 
 def handle_time():
     now = datetime.datetime.now()
-    print(f"[Raven] The time is {now.strftime('%-I:%M %p')}")
+    time_str = now.strftime('%I:%M %p').lstrip('0')
+    msg = f"[Raven] The time is {time_str}"
+    print(msg)
+    return msg
 
 
 def handle_stop():
