@@ -58,25 +58,18 @@ def process_command(command: str, settings: dict):
     print(f"[Raven] {settings["ai_mode"]} intent: {intent!r}, payload: {payload!r}")
 
     if intent == "greeting":
-        handle_greeting()
-        return
+        return handle_greeting()
     if intent == "time":
-        handle_time()
-        return
+        return handle_time()
     if intent == "weather":
-        handle_weather(payload or "")
-        return
+        return handle_weather(payload or "")
     if intent == "open":
-        handle_open(payload or "")
-        return
+        return handle_open(payload or "")
     if intent == "play":
-        handle_play(payload or "")
-        return
+        return handle_play(payload or "")
     if intent == "stop":
-        handle_stop()
-        return
+        return handle_stop()
     if intent == "search":
-        handle_search(payload or "")
-        return
+        return handle_search(payload or "")
 
     print(f"[Raven] Unmatched command (raw): '{command}'")
