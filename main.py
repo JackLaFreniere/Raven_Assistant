@@ -1,9 +1,9 @@
 from raven.settings import load_settings
 from raven.gui import create_gui
-from raven.assistant.listener import start_listener
-from raven.assistant.processor import process_command
+from raven.assistant.audio_analyzer import start_listener
+from raven.assistant.cli_analyzer import start_cli
+from time import sleep
 import threading
-import time
 import keyboard
 
 debug_mode = True
@@ -18,22 +18,16 @@ def main():
     global program_enabled
     settings = load_settings()
 
-    if debug_mode:
-        while program_enabled:
-            command = input("Enter a command >> ")
-            process_command(command, settings)
-    else:
-        if settings["start_visible"]:
-            open_gui(settings)
-    
-        keyboard.add_hotkey("tab+`", lambda: open_gui(settings))
+    if settings["start_visible"]:
+        open_gui(settings)
 
-        # Start assistant thread
-        threading.Thread(target=start_listener, args=(settings,), daemon=True).start()
+    keyboard.add_hotkey("tab+`", lambda: open_gui(settings))
 
-        # Mainloop to keep the program running
-        while program_enabled:
-            time.sleep(0.1)
+    threading.Thread(target=start_cli if debug_mode else start_listener, args=(settings,), daemon=True).start()
+
+    # Mainloop to keep the program running
+    while program_enabled:
+        sleep(0.1)
 
 def open_gui(settings):
     """
@@ -43,7 +37,7 @@ def open_gui(settings):
     global gui_open
     if not gui_open:
         gui_open = True
-        create_gui(settings, close_gui, shutdown_program)
+        threading.Thread(target=create_gui, args=(settings, close_gui, shutdown_program), daemon=False).start()
 
 def close_gui():
     """

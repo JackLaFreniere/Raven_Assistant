@@ -1,13 +1,13 @@
-import os
-import time
-import pvporcupine
-import sounddevice as sd
-import numpy as np
-import speech_recognition as sr
+from time import sleep
 from dotenv import load_dotenv
 from threading import Thread
 from collections import deque
 from .processor import process_command
+import sounddevice as sd
+import numpy as np
+import speech_recognition as sr
+import pvporcupine
+import os
 
 # Load Picovoice API key from .env
 load_dotenv()
@@ -130,4 +130,4 @@ def start_listener(settings: dict):
     audio_stream.start()
 
     while True:
-        time.sleep(0.1)
+        sleep(0.1)
