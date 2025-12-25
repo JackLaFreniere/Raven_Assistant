@@ -35,6 +35,10 @@ def process_heuristic(text: str) -> Dict[str, Optional[str]]:
     if re.search(r"\b(stop|cancel|pause|quit|exit|never mind|don't)\b", text_lower):
         return {"intent": "stop", "payload": None}
 
+    # Resume/continue commands (standalone, no song name)
+    if re.search(r"\b(resume|continue|play|go on|keep going)\b\s*$", text_lower):
+        return {"intent": "resume", "payload": None}
+
     # Play commands (improved patterns)
     # Matches: "play <song>", "play the <song>", "play me <song>", "start <song>", "listen to <song>", "put on <song>"
     m = re.search(r"\b(?:play|start|listen\s+to|put\s+on)\b\s+(?:(?:the|me|some)\s+)?(.+)", text_lower)

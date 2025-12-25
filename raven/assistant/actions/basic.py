@@ -1,4 +1,5 @@
 import datetime
+from .playback import handle_pause
 
 def handle_greeting():
     print("[Raven] Hello there!")
@@ -13,4 +14,5 @@ def handle_time():
 
 
 def handle_stop():
-    print("[Raven] Stop/cancel received.")
+    """Pause music by pressing the media play/pause key."""
+    return handle_pause()
