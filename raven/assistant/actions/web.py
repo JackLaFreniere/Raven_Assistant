@@ -20,10 +20,6 @@ def handle_open(target: str):
     print(f"[Raven] Opening: {target}")
     t = target.strip()
 
-    if ' ' in t:
-        handle_search(t)
-        return
-
     if re.search(r"^https?://", t, re.IGNORECASE):
         url = t
     else:
@@ -32,6 +28,10 @@ def handle_open(target: str):
         if mapped:
             url = "https://" + mapped if not re.search(r"^https?://", mapped) else mapped
         else:
+            # If it has a space and isn't in the mapping, treat as search
+            if ' ' in t:
+                handle_search(t)
+                return
             if '.' in token:
                 url = "https://" + t
             else:

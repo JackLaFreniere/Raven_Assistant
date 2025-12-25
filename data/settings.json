@@ -3,7 +3,7 @@
   "wake_word_enabled": true,
   "stt_enabled": true,
   "tts_enabled": true,
-  "start_visible": true,
+  "start_visible": false,
   "ai_mode": "heuristics",
   "volume": 50,
   "mic_sensitivity": 50,

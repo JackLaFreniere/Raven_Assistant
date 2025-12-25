@@ -34,7 +34,7 @@ def start_listener(settings: dict):
     porcupine = pvporcupine.create(
         access_key=ACCESS_KEY,
         keyword_paths=[path],
-        sensitivities=[0.9]
+        sensitivities=[0.8]
     )
 
     # Get the agent name from the Wake-word model file name for debugging
@@ -54,7 +54,7 @@ def start_listener(settings: dict):
         print(f"[{agent_name}] Listening for command...")
 
         chunk_size = 1024
-        silence_threshold = 10
+        silence_threshold = 100
         max_silence_chunks = 15
         silence_chunks = 0
         audio_buffer = deque()

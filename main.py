@@ -6,16 +6,16 @@ from time import sleep
 import threading
 import keyboard
 
-debug_mode = True
-gui_open = False
+debug_mode = False
 program_enabled = True
+gui_open = False
 
 def main():
     """
     Executes the main functionality and the heart of the program.
     """
 
-    global program_enabled
+    global program_enabled, debug_mode
     settings = load_settings()
 
     if settings["start_visible"]:
