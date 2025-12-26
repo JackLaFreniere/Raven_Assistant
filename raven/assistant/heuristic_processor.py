@@ -41,7 +41,7 @@ def process_heuristic(text: str) -> Dict[str, Optional[str]]:
 
     # Play commands (improved patterns)
     # Matches: "play <song>", "play the <song>", "play me <song>", "start <song>", "listen to <song>", "put on <song>"
-    m = re.search(r"\b(?:play|start|listen\s+to|put\s+on)\b\s+(?:(?:the|me|some)\s+)?(.+)", text_lower)
+    m = re.search(r"\b(?:play|start|listen\s+to|put\s+on)\b\s+(?:(?:me|some)\s+)?(.+)", text_lower)
     if m:
         payload = m.group(1).strip()
         # Remove common filler words from payload
