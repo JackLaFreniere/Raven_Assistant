@@ -4,7 +4,7 @@ Implementation to be added later.
 """
 
 from typing import Dict, Optional
-
+from ..settings import print
 
 def process_ai(text: str) -> Dict[str, Optional[str]]:
     """

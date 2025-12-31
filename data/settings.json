@@ -1,5 +1,6 @@
 {
   "assistant_enabled": true,
+  "assistant_name": "Raven",
   "wake_word_enabled": true,
   "stt_enabled": true,
   "tts_enabled": true,

@@ -5,7 +5,7 @@ Fast, lightweight, no external dependencies.
 
 import re
 from typing import Dict, Optional
-
+from ..settings import print
 
 def process_heuristic(text: str) -> Dict[str, Optional[str]]:
     """

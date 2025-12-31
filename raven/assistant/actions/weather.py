@@ -1,7 +1,6 @@
 from typing import Optional, Dict, Any
-from urllib.parse import quote_plus
-import re
 import requests
+from ...settings import print
 
 # Map Open-Meteo weather codes to short descriptions
 wc_map = {
@@ -176,10 +175,10 @@ def handle_weather(location: Optional[str] = None) -> str:
             raise RuntimeError('open-meteo returned no usable data')
 
         # Print and return the message as requested
-        print(f"[Raven] {msg}")
+        print(msg)
         return msg
 
     except Exception as exc:
-        err = f"[Raven] Unable to get weather: {exc}"
+        err = f"Unable to get weather: {exc}"
         print(err)
         return 'Unable to get weather.'

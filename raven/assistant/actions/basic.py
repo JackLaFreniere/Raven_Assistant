@@ -1,14 +1,15 @@
 import datetime
 from .playback import handle_pause
+from ...settings import print
 
 def handle_greeting():
-    print("[Raven] Hello there!")
+    print("Hello there!")
 
 
 def handle_time():
     now = datetime.datetime.now()
     time_str = now.strftime('%I:%M %p').lstrip('0')
-    msg = f"[Raven] The time is {time_str}"
+    msg = f"The time is {time_str}"
     print(msg)
     return msg
 

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from threading import Thread
 from collections import deque
 from .processor import process_command
+from ..settings import print
 import sounddevice as sd
 import numpy as np
 import speech_recognition as sr
@@ -17,7 +18,6 @@ if ACCESS_KEY is None:
 
 porcupine = None
 audio_stream = None
-agent_name = ""
 
 def start_listener(settings: dict):
     """
@@ -25,7 +25,7 @@ def start_listener(settings: dict):
     Detects wake-word and triggers command recording.
     """
 
-    global porcupine, audio_stream, agent_name
+    global porcupine, audio_stream
 
     # Wake-word model
     path = "porcupine/Hey-Raven_en_windows_v3_0_0.ppn"
@@ -37,9 +37,8 @@ def start_listener(settings: dict):
         sensitivities=[0.8]
     )
 
-    # Get the agent name from the Wake-word model file name for debugging
-    agent_name = path[path.index("-") + 1:path.index("_")]
-    print(f"[{agent_name}] Listening for wake word...")
+    # Get prefix from settings
+    print("Listening for wake word...")
 
     frame_length = porcupine.frame_length
     sample_rate = porcupine.sample_rate
@@ -51,7 +50,7 @@ def start_listener(settings: dict):
         Converts audio to text and processes the command if possible.
         """
 
-        print(f"[{agent_name}] Listening for command...")
+        print("Listening for command...")
 
         chunk_size = 1024
         silence_threshold = 100
@@ -88,14 +87,14 @@ def start_listener(settings: dict):
             audio = sr.AudioData(audio_data, sample_rate, 2)
             try:
                 command_text = recognizer.recognize_google(audio)
-                print(f"[{agent_name}] Command received: {command_text}")
+                print(f"Command received: {command_text}")
                 process_command(command_text, settings)
             except sr.UnknownValueError:
-                print(f"[{agent_name}] Could not understand audio.")
+                print("Could not understand audio.")
             except sr.RequestError as e:
-                print(f"[{agent_name}] Speech recognition error: {e}")
+                print(f"Speech recognition error: {e}")
         except Exception as e:
-            print(f"[{agent_name}] Error processing audio: {e}")
+            print(f"Error processing audio: {e}")
     
     def audio_callback(indata, frames, time_info, status):
         """
@@ -113,12 +112,12 @@ def start_listener(settings: dict):
         try:
             result = porcupine.process(pcm)
         except Exception as e:
-            print(f"[{agent_name}] Porcupine error: {e}")
+            print(f"Porcupine error: {e}")
             return
 
         # If the wake word was detected and the settings are enabled, start recording the command
         if result >= 0 and settings.get("wake_word_enabled", False):
-            print(f"[{agent_name}] WAKE WORD DETECTED!")
+            print("WAKE WORD DETECTED!")
             Thread(target=record_command, daemon=True).start()
 
     audio_stream = sd.InputStream(

@@ -1,6 +1,7 @@
 import keyboard
 import asyncio
 from winsdk.windows.media.control import GlobalSystemMediaTransportControlsSessionManager, GlobalSystemMediaTransportControlsSessionPlaybackStatus
+from ...settings import print
 
 async def _is_playing():
     manager = await GlobalSystemMediaTransportControlsSessionManager.request_async()
@@ -18,10 +19,10 @@ def handle_pause():
     if is_playing():
         keyboard.press_and_release("play/pause media")
     else:
-        print("[Raven]: Already paused")
+        print("Already paused")
 
 def handle_resume():
     if not is_playing():
         keyboard.press_and_release("play/pause media")
     else:
-        print("[Raven]: Already playing")
+        print("Already playing")

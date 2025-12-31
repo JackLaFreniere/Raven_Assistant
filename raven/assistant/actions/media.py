@@ -3,6 +3,7 @@ from ytmusicapi import YTMusic
 import re
 import webbrowser
 import math
+from ...settings import print
 
 def _normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9\s]+", " ", text.lower()).strip()

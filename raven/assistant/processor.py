@@ -8,6 +8,7 @@ from .actions.playback import handle_resume
 from .actions.weather import handle_weather
 from .actions.web import handle_open, handle_search
 from .actions.media import handle_play
+from ..settings import print
 
 
 def process_command(command: str, settings: dict):
@@ -33,7 +34,7 @@ def process_command(command: str, settings: dict):
     intent = result.get("intent")
     payload = result.get("payload")
 
-    print(f"[Assistant] {ai_mode} mode - intent: {intent!r}, payload: {payload!r}")
+    print(f"{ai_mode} mode - intent: {intent!r}, payload: {payload!r}")
 
     if intent == "greeting":
         return handle_greeting()
@@ -52,4 +53,4 @@ def process_command(command: str, settings: dict):
     if intent == "search":
         return handle_search(payload or "")
 
-    print(f"[Assistant] Unmatched command (raw): '{command}'")
+    print(f"Unmatched command (raw): '{command}'")

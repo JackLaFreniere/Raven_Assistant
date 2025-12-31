@@ -1,9 +1,9 @@
-import os
 import re
 import webbrowser
 from urllib.parse import quote_plus
 import json
 from pathlib import Path
+from ...settings import print
 
 # Load host->tld mapping from repo `data/host_tlds.json`
 HOST_TLDS = {}
@@ -17,7 +17,7 @@ except Exception:
 
 
 def handle_open(target: str):
-    print(f"[Raven] Opening: {target}")
+    print(f"Opening: {target}")
     t = target.strip()
 
     if re.search(r"^https?://", t, re.IGNORECASE):
@@ -40,13 +40,13 @@ def handle_open(target: str):
     try:
         webbrowser.open(url)
     except Exception as e:
-        print(f"[Raven] Could not open target: {e}")
+        print(f"Could not open target: {e}")
 
 
 def handle_search(query: str):
-    print(f"[Raven] Searching for: {query}")
+    print(f"Searching for: {query}")
     url = "https://www.google.com/search?q=" + quote_plus(query)
     try:
         webbrowser.open(url)
     except Exception:
-        print("[Raven] Failed to open web browser for search.")
+        print("Failed to open web browser for search.")
