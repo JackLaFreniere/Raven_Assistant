@@ -5,6 +5,7 @@ from raven.assistant.cli_analyzer import start_cli
 from time import sleep
 import threading
 import keyboard
+import sys
 
 debug_mode = False
 program_enabled = True
@@ -14,9 +15,12 @@ def main():
     """
     Executes the main functionality and the heart of the program.
     """
-
+        
     global program_enabled, debug_mode
     settings = load_settings()
+
+    if len(sys.argv) > 1:
+        debug_mode = sys.argv[1].lower() == "true"
 
     if settings["start_visible"]:
         open_gui(settings)
