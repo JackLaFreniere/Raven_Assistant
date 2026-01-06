@@ -82,7 +82,7 @@ def save_settings(settings: dict):
     except Exception as e:
         print(f"Failed to save settings.json: {e}")
 
-def print(message: str, *args, **kwargs):
+def print(message: str = "", *args, **kwargs):
     """
     Custom print function that automatically adds the assistant name prefix.
     """
