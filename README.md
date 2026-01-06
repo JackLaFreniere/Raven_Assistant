@@ -1,57 +1,18 @@
-# RAVEN - Real-time Automatic Voice Execution Network
+# RAVEN - Voice Assistant
 
-A voice assistant built in Python that processes commands through voice input or CLI testing.
-
-**RAVEN** = **Real-time Automatic Voice Execution Network**
-
-## Features
-
-- **Dual Intent Detection**: Heuristic (fast regex) and AI-based modes
-- **Voice & CLI Input**: Wake word detection with Porcupine or CLI for testing
-- **Action System**: Weather, web browsing, media playback, time queries
-- **GUI Settings Panel**: Configure mode, model, and audio settings
-- **Modular Design**: Easy to extend with new commands and processors
-
-## Project Structure
-
-```
-Raven_Assistant/
-├── main.py                    # Entry point
-├── data/
-│   ├── settings.json         # Configuration
-│   └── host_tlds.json        # TLD reference
-├── porcupine/
-│   └── Hey-Raven_...ppn      # Wake word model
-└── raven/
-    ├── settings.py
-    ├── gui.py
-    └── assistant/
-        ├── processor.py              # Intent router
-        ├── heuristic_processor.py    # Regex-based detection
-        ├── ai_processor.py           # AI detection (extensible)
-        └── actions/
-            ├── basic.py
-            ├── weather.py
-            ├── web.py
-            └── media.py
-```
+A Python-based voice assistant with wake word detection and command execution.
 
 ## Installation
 
-### Requirements
-
+### Prerequisites
 - Python 3.9+
 - Windows
 
 ### Dependencies
 
-Install required packages:
-
 ```bash
-pip install pvporcupine dearpygui SpeechRecognition requests keyboard
+pip install pvporcupine dearpygui python-dotenv SpeechRecognition requests keyboard sounddevice numpy ytmusicapi AppOpener thefuzz winsdk
 ```
-
-These packages provide wake word detection, GUI, speech-to-text, HTTP requests, and hotkey support.
 
 ### Setup
 
@@ -60,44 +21,17 @@ These packages provide wake word detection, GUI, speech-to-text, HTTP requests, 
    RAVEN_PV_ACCESS_KEY=your_key_here
    ```
 
-2. Edit `data/settings.json` to configure your preferences
+2. Edit `data/settings.json` to configure preferences
 
 ## Usage
-
-### Running RAVEN
 
 ```bash
 python main.py
 ```
 
-### Debug Mode (CLI)
-
-Set `debug_mode = True` in `main.py` to test commands via terminal:
-
-```
-Enter a command >> play lofi music
-Enter a command >> what's the weather in seattle
-Enter a command >> search for python
-```
-
-### Voice Mode
-
-Set `debug_mode = False` to use Porcupine wake word detection. Say "Hey Raven" to activate.
-
-### Settings
-
-Press **Tab+`** to open the settings panel and adjust:
-- AI mode (heuristics or ai)
-- AI model
-- Audio settings
-
-## Intent Types
-
-| Intent | Example |
-|--------|---------|
-| `greeting` | "hello", "hi", "hey" |
-| `time` | "what time is it" |
-| `weather` | "weather in boston" |
+- **Voice Mode**: Say "Hey Raven" to activate
+- **Debug Mode**: Set `debug_mode = True` in `main.py` to test via CLI
+- **Settings**: Press **Tab+`** to open the settings panel
 | `open` | "open youtube" |
 | `play` | "play lofi music" |
 | `stop` | "stop", "pause" |
