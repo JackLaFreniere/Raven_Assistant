@@ -18,11 +18,21 @@ def is_playing():
 def handle_pause():
     if is_playing():
         keyboard.press_and_release("play/pause media")
+        msg = "Paused playback"
+        print(msg)
+        return msg
     else:
-        print("Already paused")
+        msg = "Already paused"
+        print(msg)
+        return msg
 
 def handle_resume():
     if not is_playing():
         keyboard.press_and_release("play/pause media")
+        msg = "Resuming playback"
+        print(msg)
+        return msg
     else:
-        print("Already playing")
+        msg = "Already playing"
+        print(msg)
+        return msg

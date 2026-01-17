@@ -22,6 +22,7 @@ except Exception:
 def handle_open(target: str):
     if not app_open(target):
         web_open(target)
+    return f"Opening {target}"
 
 def app_open(target: str):
     apps = list(give_appnames(upper=False))
@@ -80,9 +81,12 @@ def web_open(target: str):
         print(f"Could not open target: {e}")
 
 def handle_search(query: str):
-    print(f"Searching for: {query}")
+    msg = f"Searching for {query}"
+    print(msg)
     url = "https://www.google.com/search?q=" + quote_plus(query)
     try:
         webbrowser.open(url)
     except Exception:
-        print("Failed to open web browser for search.")
+        msg = "Failed to open web browser for search."
+        print(msg)
+    return msg

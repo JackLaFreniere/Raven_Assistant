@@ -6,9 +6,13 @@
   "tts_enabled": true,
   "start_visible": false,
   "ai_mode": "heuristics",
-  "volume": 50,
+  "volume": 100.0,
   "mic_sensitivity": 50,
   "hotkey_enabled": true,
   "hotkey": "",
-  "tts_voice": "Default"
+  "tts_voice": "Microsoft David Desktop - English (United States)",
+  "available_voices": [
+    "Microsoft David Desktop - English (United States)",
+    "Microsoft Zira Desktop - English (United States)"
+  ]
 }

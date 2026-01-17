@@ -3,7 +3,9 @@ from .playback import handle_pause
 from ...settings import print
 
 def handle_greeting():
-    print("Hello there!")
+    msg = "Hello there!"
+    print(msg)
+    return msg
 
 
 def handle_time():

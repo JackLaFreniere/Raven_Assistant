@@ -201,15 +201,21 @@ def handle_play(media: str):
 
         video_id = best_result.get("videoId")
         if not video_id:
-            return
+            msg = "Could not find a song to play"
+            print(msg)
+            return msg
 
         # Print final confirmation and open
         title = best_result.get("title", "Unknown")
         artist = best_result.get("artists", [{}])[0].get("name", "Unknown")
-        print(f"Playing {title} by {artist}")
+        msg = f"Playing {title} by {artist}"
+        print(msg)
         
         song_url = f"https://music.youtube.com/watch?v={video_id}"
         webbrowser.open(song_url)
+        return msg
 
-    except Exception:
-        pass
+    except Exception as e:
+        msg = "Failed to play media"
+        print(f"{msg}: {e}")
+        return msg

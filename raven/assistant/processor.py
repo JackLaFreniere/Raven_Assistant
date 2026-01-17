@@ -3,6 +3,7 @@ from typing import Dict, Optional
 
 from .heuristic_processor import process_heuristic
 from .ai_processor import process_ai
+from .tts import speak
 from .actions.basic import handle_greeting, handle_time, handle_stop
 from .actions.playback import handle_resume
 from .actions.weather import handle_weather
@@ -37,23 +38,34 @@ def process_command(command: str, settings: dict):
 
     print(f"{ai_mode} mode - intent: {intent!r}, payload: {payload!r}")
 
+    response = None
+    
     if intent == "greeting":
-        return handle_greeting()
-    if intent == "time":
-        return handle_time()
-    if intent == "weather":
-        return handle_weather(payload or "")
-    if intent == "open":
-        return handle_open(payload or "")
-    if intent == "play":
-        return handle_play(payload or "")
-    if intent == "stop":
-        return handle_stop()
-    if intent == "resume":
-        return handle_resume()
-    if intent == "search":
-        return handle_search(payload or "")
-    if intent == "sequence":
-        return handle_run_sequence(payload or "")
-
-    print(f"Unmatched command (raw): '{command}'")
+        response = handle_greeting()
+    elif intent == "time":
+        response = handle_time()
+    elif intent == "weather":
+        response = handle_weather(payload or "")
+    elif intent == "open":
+        response = handle_open(payload or "")
+    elif intent == "play":
+        response = handle_play(payload or "")
+    elif intent == "stop":
+        response = handle_stop()
+    elif intent == "resume":
+        response = handle_resume()
+    elif intent == "search":
+        response = handle_search(payload or "")
+    elif intent == "sequence":
+        response = handle_run_sequence(payload or "")
+    else:
+        print(f"Unmatched command (raw): '{command}'")
+        return
+    
+    # If TTS is enabled and we have a response, speak it
+    if response and settings.get("tts_enabled", False):
+        tts_voice = settings.get("tts_voice", "Default")
+        tts_volume = settings.get("volume", 50)
+        speak(response, voice_name=tts_voice, volume=tts_volume)
+    
+    return response

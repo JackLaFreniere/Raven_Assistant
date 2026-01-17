@@ -11,6 +11,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Settings file is stored in: RAVEN_ASSISTANT/data/settings.json
 SETTINGS_PATH = BASE_DIR / "data" / "settings.json"
 
+
+def _get_available_voices():
+    """Get list of available TTS voices on the system."""
+    try:
+        import pyttsx3
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        return [voice.name for voice in voices] if voices else ["Default"]
+    except Exception:
+        return ["Default"]
+
+
 # Default settings (used on first run or when keys are missing)
 # CHANGE THESE SETTINGS AS THEY WILL AUTOMATICALLY UPDATE THE JSON FILE
 DEFAULT_SETTINGS = {
@@ -25,7 +37,8 @@ DEFAULT_SETTINGS = {
   "mic_sensitivity": 50,
   "hotkey_enabled": True,
   "hotkey": "",
-  "tts_voice": "Default"
+  "tts_voice": "Default",
+  "available_voices": _get_available_voices()
 }
 
 def load_settings() -> dict:

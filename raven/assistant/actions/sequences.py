@@ -101,10 +101,13 @@ def handle_run_sequence(sequence_name: str):
     if not sequence_name:
         available = list_available_sequences()
         if available:
-            print(f"Available sequences: {', '.join(available)}")
+            msg = f"Available sequences: {', '.join(available)}"
+            print(msg)
+            return msg
         else:
-            print("No sequences available. Create .seq files in data/sequences/")
-        return
+            msg = "No sequences available. Create .seq files in data/sequences/"
+            print(msg)
+            return msg
     
     # Normalize sequence name
     sequence_name = sequence_name.lower().strip()
@@ -112,7 +115,9 @@ def handle_run_sequence(sequence_name: str):
     # Load the sequence
     commands = load_sequence(sequence_name)
     if not commands:
-        return
+        msg = f"Sequence '{sequence_name}' not found"
+        print(msg)
+        return msg
         
     # Import handlers here to avoid circular imports
     from .basic import handle_greeting, handle_time, handle_stop
@@ -152,4 +157,6 @@ def handle_run_sequence(sequence_name: str):
             print(f"Error executing command {idx}: {e}")
             # Continue with next command even if one fails
     
-    print(f"Sequence '{sequence_name}' completed")
+    msg = f"Sequence '{sequence_name}' completed"
+    print(msg)
+    return msg
