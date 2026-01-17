@@ -21,6 +21,12 @@ def process_heuristic(text: str) -> Dict[str, Optional[str]]:
     # Normalize to lowercase for matching
     text_lower = text.lower()
     
+    # Sequence/macro commands - check early to avoid conflicts
+    # Matches: "run sequence gaming", "run gaming", "sequence gaming", "execute gaming"
+    m = re.search(r"\b(?:run\s+(?:sequence\s+)?|execute\s+(?:sequence\s+)?|sequence\s+)([a-z0-9_-]+)\b", text_lower)
+    if m:
+        return {"intent": "sequence", "payload": m.group(1).strip()}
+    
     # Weather commands
     m = re.search(r"\b(?:weather|forecast|temperature|rain|snow|wind)\b(?:.*(?:in|for)\s+(.+))?", text_lower)
     if m:

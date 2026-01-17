@@ -8,6 +8,7 @@ from .actions.playback import handle_resume
 from .actions.weather import handle_weather
 from .actions.web import handle_open, handle_search
 from .actions.media import handle_play
+from .actions.sequences import handle_run_sequence
 from ..settings import print
 
 
@@ -52,5 +53,7 @@ def process_command(command: str, settings: dict):
         return handle_resume()
     if intent == "search":
         return handle_search(payload or "")
+    if intent == "sequence":
+        return handle_run_sequence(payload or "")
 
     print(f"Unmatched command (raw): '{command}'")
